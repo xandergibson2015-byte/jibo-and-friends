@@ -1,53 +1,28 @@
 {
   "name": "jibo-and-friends",
   "version": "1.0.0",
-  "description": "Fan-made Jibo and Friends robot gallery app",
-  "author": "Jibo and Friends Fan Project",
+  "description": "Fan-made Jibo and Friends app",
   "main": "main.js",
   "scripts": {
     "start": "electron .",
     "build": "electron-builder"
   },
   "devDependencies": {
-    "electron": "^30.5.1",
+    "electron": "^30.0.0",
     "electron-builder": "^24.13.3"
   },
   "build": {
     "appId": "com.fanproject.jiboandfriends",
     "productName": "Jibo and Friends",
-
-    "files": [
-      "**/*",
-      "robots.json",
-      "robots/**/*"
-    ],
-
     "directories": {
-      "buildResources": "assets",
-      "output": "dist"
+      "buildResources": "assets"
     },
-
-    "win": {
-      "target": "nsis",
-      "icon": "assets/icon.ico"
-    },
-
     "mac": {
-      "target": "dmg",
-      "icon": "assets/icon.icns"
-    },
-
-    "linux": {
-      "target": "AppImage",
-      "icon": "assets/icon.png",
-      "category": "Utility"
-    },
-
-    "nsis": {
-      "oneClick": false,
-      "allowToChangeInstallationDirectory": true,
-      "createDesktopShortcut": true,
-      "createStartMenuShortcut": true
+      "icon": "assets/icon.icns",
+      "target": [
+        "dmg",
+        "zip"
+      ]
     }
   }
 }
