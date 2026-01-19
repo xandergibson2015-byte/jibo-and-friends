@@ -14,6 +14,7 @@
   "build": {
     "appId": "com.fanproject.jiboandfriends",
     "productName": "Jibo and Friends",
+    "publish": "never",
     "directories": {
       "buildResources": "assets"
     },
