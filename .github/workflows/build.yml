@@ -1,0 +1,65 @@
+name: Build Desktop Apps
+
+on:
+  push:
+    branches: [ main ]
+  workflow_dispatch:
+
+jobs:
+  macos:
+    name: Build macOS DMG
+    runs-on: macos-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 24
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Build macOS
+        run: npm run build
+
+      - name: List dist folder
+        if: always()
+        run: ls -R dist
+
+      - name: Upload macOS DMG
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: macOS-DMG
+          path: dist/**/*.dmg
+
+  linux:
+    name: Build Linux AppImage
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 24
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Build Linux
+        run: npm run build
+
+      - name: List dist folder
+        if: always()
+        run: ls -R dist
+
+      - name: Upload Linux AppImage
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: Linux-AppImage
+          path: dist/**/*.AppImage
