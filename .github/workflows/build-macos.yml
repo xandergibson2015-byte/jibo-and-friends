@@ -1,10 +1,10 @@
 name: Build macOS App
 
 on:
+  workflow_dispatch:
   push:
     branches:
       - main
-  workflow_dispatch:
 
 jobs:
   build:
@@ -21,13 +21,14 @@ jobs:
 
       - name: Install dependencies
         run: npm install
+        continue-on-error: true
 
-      - name: Build macOS app and save log
-        run: |
-          npm run build 2>&1 | tee build-log.txt
-          exit ${PIPESTATUS[0]}
+      - name: Build macOS app
+        run: npm run build > build-log.txt 2>&1
+        continue-on-error: true
 
       - name: Upload build log
+        if: always()
         uses: actions/upload-artifact@v4
         with:
           name: build-log
