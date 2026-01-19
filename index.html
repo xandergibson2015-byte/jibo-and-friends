@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Jibo and Friends</title>
+
+  <meta
+    http-equiv="Content-Security-Policy"
+    content="default-src 'self'; img-src 'self' data:;"
+  />
+
+  <style>
+    body {
+      font-family: Arial, Helvetica, sans-serif;
+      background-color: #111;
+      color: white;
+      margin: 0;
+      padding: 20px;
+    }
+
+    h1 {
+      text-align: center;
+      margin-bottom: 24px;
+    }
+
+    #robot-gallery {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+      gap: 16px;
+    }
+
+    .robot-card {
+      background: #1e1e1e;
+      border-radius: 12px;
+      padding: 20px;
+      text-align: center;
+      cursor: pointer;
+      font-size: 16px;
+      transition: transform 0.2s,
+    }
+
+    .robot-card:hover {
+      background: #f1f1f1;
+      transform: scale(1.02);
+    }
+
+    .robot-card:active {
+      transform: scale(0.98);
+    }
+
+    .robot-card img {
+      width: 128px;
+      height: 128px;
+      object-fit: contain;
+      display: block;
+      margin: 0 auto 8px;
+    }
+
+    .robot-name {
+      font-size: 16px;
+      font-weight: bold;
+      margin-bottom: 8px;
+    }
+
+    .robot-desc {
+      font-size: 13px;
+      color: #ccc;
+      line-height: 1.4;
+    }
+  </style>
+</head>
+
+<body>
+  <h1>Jibo and Friends</h1>
+
+  <div id="robot-gallery">
+    <!-- Robot cards are injected here by renderer.js -->
+  </div>
+
+  <script src="renderer.js"></script>
+</body>
+</html>
