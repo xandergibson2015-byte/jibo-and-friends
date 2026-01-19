@@ -2,28 +2,55 @@
   "name": "jibo-and-friends",
   "version": "1.0.0",
   "description": "Fan-made Jibo and Friends app",
+  "author": "Jibo and Friends Fan Project",
   "main": "main.js",
+  "private": true,
+
   "scripts": {
     "start": "electron .",
     "build": "electron-builder"
   },
+
   "devDependencies": {
-    "electron": "^30.0.0",
+    "electron": "^30.5.1",
     "electron-builder": "^24.13.3"
   },
+
   "build": {
     "appId": "com.fanproject.jiboandfriends",
     "productName": "Jibo and Friends",
-    "publish": "null",
+
+    "publish": null,
+
     "directories": {
-      "buildResources": "assets"
+      "buildResources": "assets",
+      "output": "dist"
     },
+
+    "files": [
+      "**/*",
+      "!node_modules/**/*.{md,ts,map}",
+      "!**/*.log"
+    ],
+
+    "win": {
+      "icon": "assets/icon.ico",
+      "target": "nsis"
+    },
+
     "mac": {
       "icon": "assets/icon.icns",
       "target": [
-        "dmg",
-        "zip"
+        {
+          "target": "dmg",
+          "arch": ["arm64"]
+        }
       ]
+    },
+
+    "linux": {
+      "icon": "assets/icon.png",
+      "target": "AppImage"
     }
   }
 }
