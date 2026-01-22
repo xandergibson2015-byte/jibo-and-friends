@@ -7,11 +7,12 @@ on:
 
 jobs:
   windows:
-    name: Windows EXE
+    name: Windows Installer
     runs-on: windows-latest
 
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout repo
+        uses: actions/checkout@v4
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
@@ -35,12 +36,14 @@ jobs:
           name: Windows-Installer
           path: dist/**/*.exe
 
+
   macos:
     name: macOS DMG
     runs-on: macos-latest
 
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout repo
+        uses: actions/checkout@v4
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
@@ -64,12 +67,14 @@ jobs:
           name: macOS-DMG
           path: dist/**/*.dmg
 
+
   linux:
-    name: Linux AppImage
+    name: Linux Packages
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout repo
+        uses: actions/checkout@v4
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
@@ -92,3 +97,10 @@ jobs:
         with:
           name: Linux-AppImage
           path: dist/**/*.AppImage
+
+      - name: Upload Linux DEB
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: Linux-DEB
+          path: dist/**/*.deb
