@@ -103,4 +103,4 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: Linux-DEB
-          path: dist/**/*.deb
+          path: dist/*.deb
