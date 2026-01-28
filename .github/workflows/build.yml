@@ -1,9 +1,9 @@
-name: Build Jibo and Friends
+name: Build Desktop Apps
 
 on:
+  workflow_dispatch:
   push:
     branches: [main]
-  workflow_dispatch:
 
 jobs:
   build:
@@ -14,28 +14,23 @@ jobs:
     runs-on: ${{ matrix.os }}
 
     steps:
-      - name: Checkout repository
+      - name: Checkout repo
         uses: actions/checkout@v4
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: 18
+          node-version: 20
 
       - name: Install dependencies
         run: npm install
 
       - name: Build app
         run: npm run build
-        env:
-          GH_TOKEN: ""
 
-      - name: List dist folder (debug)
-        run: ls -R dist
-        if: runner.os != 'Windows'
-
-      - name: Upload artifacts
+      - name: Upload build artifacts
         uses: actions/upload-artifact@v4
         with:
-          name: build-${{ runner.os }}
-          path: dist/**
+          name: builds-${{ matrix.os }}
+          path: |
+            dist/**
