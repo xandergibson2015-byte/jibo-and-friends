@@ -1,36 +1,54 @@
 {
   "name": "jibo-and-friends",
   "version": "1.0.0",
-  "description": "Fan-made Jibo and Friends app",
-  "main": "main.js",
+  "description": "Fan-made Jibo and Friends robot gallery app",
   "author": {
     "name": "Xander Gibson",
     "email": "xandergibson2015@gmail.com"
   },
+  "main": "main.js",
   "scripts": {
     "start": "electron .",
     "build": "electron-builder"
   },
   "devDependencies": {
-    "electron": "^30.0.0",
+    "electron": "^28.2.0",
     "electron-builder": "^24.13.3"
   },
   "build": {
     "appId": "com.fanproject.jiboandfriends",
     "productName": "Jibo and Friends",
+
     "directories": {
-      "buildResources": "assets"
+      "buildResources": "assets",
+      "output": "dist"
     },
+
+    "files": [
+      "**/*",
+      "!node_modules/.cache/**"
+    ],
+
     "win": {
       "icon": "assets/icon.ico",
       "target": "nsis"
     },
+
     "mac": {
       "icon": "assets/icon.icns",
-      "target": "dmg"
+      "minimumSystemVersion": "11.0",
+      "target": [
+        {
+          "target": "dmg",
+          "arch": ["x64", "arm64"]
+        }
+      ]
     },
+
     "linux": {
       "icon": "assets/icon.png",
+      "category": "Utility",
+      "maintainer": "Xander <xander@example.com>",
       "target": [
         "AppImage",
         "deb"
