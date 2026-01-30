@@ -1,42 +1,12 @@
 [
-  {
-    "name": "Jibo",
-    "description": "A social robot designed to interact with humans using expressive movements and speech."
-  },
-  {
-    "name": "Alexa",
-    "description": "Amazon’s voice assistant used in Echo devices for smart home control and information."
-  },
-  {
-    "name": "Google Assistant",
-    "description": "Google’s AI assistant that helps with questions, tasks, and smart devices."
-  },
-  {
-    "name": "Vector",
-    "description": "A small AI-powered robot by Anki with personality, voice interaction, and autonomy."
-  },
-  {
-    "name": "Cozmo",
-    "description": "A playful educational robot by Anki designed to teach coding and AI concepts."
-  },
-  {
-    "name": "Woobo",
-    "description": "A friendly robot companion designed for children, focused on learning and play."
-  },
-  {
-    "name": "Miko 2",
-    "description": "An educational AI robot for kids that supports learning, games, and conversations."
-  },
-  {
-    "name": "Misa",
-    "description": "A friendly AI robot companion designed for learning and interaction, often used for education and family-friendly entertainment."
-  },
-  {
-    "name": "Moxie",
-    "description": "A social-emotional learning robot designed to help children develop communication skills."
-  },
-  {
-    "name": "Romo Robot",
-    "description": "A smartphone-powered robot that can move, see, and interact using apps."
-  }
+  {"name": "Jibo", "description": "A social robot designed to interact with humans using expressive movements and speech."},
+  {"name": "Alexa", "description": "Amazon’s voice assistant used in Echo devices for smart home control and information."},
+  {"name": "Google Assistant", "description": "Google’s AI assistant that helps with questions, tasks, and smart devices."},
+  {"name": "Vector", "description": "A small AI-powered robot by Anki with personality, voice interaction, and autonomy."},
+  {"name": "Cozmo", "description": "A playful educational robot by Anki designed to teach coding and AI concepts."},
+  {"name": "Woobo", "description": "A friendly robot companion designed for children, focused on learning and play."},
+  {"name": "Miko 2", "description": "An educational AI robot for kids that supports learning, games, and conversations."},
+  {"name": "Misa", "description": "A friendly AI robot companion designed for learning and interaction, often used for education and family-friendly entertainment."},
+  {"name": "Moxie", "description": "A social-emotional learning robot designed to help children develop communication skills."},
+  {"name": "Romo Robot", "description": "A smartphone-powered robot that can move, see, and interact using apps."}
 ]
