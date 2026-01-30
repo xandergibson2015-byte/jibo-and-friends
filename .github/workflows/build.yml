@@ -1,109 +1,79 @@
-name: Build Jibo and Friends (All Platforms)
+name: Build All Platforms
 
 on:
   push:
-    branches: [ main ]
+    branches: [ "main" ]
   workflow_dispatch:
 
 jobs:
   windows:
-    name: Windows Installer
     runs-on: windows-latest
+    name: Windows Build
 
     steps:
-      - name: Checkout repo
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v4
 
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
+      - uses: actions/setup-node@v4
         with:
-          node-version: 24
+          node-version: 20
 
-      - name: Install dependencies
-        run: npm install
-
-      - name: Build Windows
-        run: npm run build
-
-      - name: List dist folder
-        if: always()
-        run: dir dist
+      - run: npm install
+      - run: npm run build
 
       - name: Upload Windows EXE
-        if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: Windows-Installer
+          name: windows-installer
           path: dist/**/*.exe
 
-
   macos:
-    name: macOS DMG
-    runs-on: macos-latest
+    runs-on: macos-12
+    name: macOS Build
 
     steps:
-      - name: Checkout repo
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v4
 
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
+      - uses: actions/setup-node@v4
         with:
-          node-version: 24
+          node-version: 20
 
-      - name: Install dependencies
-        run: npm install
+      - run: npm install
+      - run: npm run build
 
-      - name: Build macOS
-        run: npm run build
-
-      - name: List dist folder
-        if: always()
-        run: ls -R dist
+      - name: Upload macOS PKG
+        uses: actions/upload-artifact@v4
+        with:
+          name: macos-pkg
+          path: dist/**/*.pkg
 
       - name: Upload macOS DMG
-        if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: macOS-DMG
+          name: macos-dmg
           path: dist/**/*.dmg
 
-
   linux:
-    name: Linux Packages
     runs-on: ubuntu-latest
+    name: Linux Build
 
     steps:
-      - name: Checkout repo
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v4
 
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
+      - uses: actions/setup-node@v4
         with:
-          node-version: 24
+          node-version: 20
 
-      - name: Install dependencies
-        run: npm install
-        
-      - name: Install fakeroot
-        run: sudo apt-get update && sudo apt-get install -y fakeroot
-        
-      - name: Build Linux
-        run: npm run build
+      - run: npm install
+      - run: npm run build
 
-      - name: List dist folder
-        if: always()
-        run: ls -R dist
-
-      - name: Upload Linux AppImage
-        if: always()
+      - name: Upload DEB
         uses: actions/upload-artifact@v4
         with:
-          name: Linux-AppImage
-          path: dist/**/*.AppImage
-
-      - name: Upload Linux DEB
-        if: always()
-        uses: actions/upload-artifact@v4
-        with:
-          name: Linux-DEB
+          name: linux-deb
           path: dist/**/*.deb
+
+      - name: Upload AppImage
+        uses: actions/upload-artifact@v4
+        with:
+          name: linux-appimage
+          path: dist/**/*.AppImage
