@@ -1,6 +1,7 @@
-const gallery = document.getElementById('robot-gallery');
+// renderer.js
+// Make sure robots.js is loaded before this script
 
-const robots = window.api.getRobots();
+const gallery = document.getElementById('robot-gallery');
 
 robots.forEach(robot => {
   const card = document.createElement('div');
