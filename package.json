@@ -3,17 +3,22 @@
   "version": "1.0.0",
   "description": "Jibo and Friends",
   "main": "main.js",
-  "author": "Xander",
+  "author": {
+    "name": "Xander Gibson",
+    "email": "xandergibson2015@gmail.com"
+  },
   "license": "MIT",
   "scripts": {
     "start": "electron .",
     "build": "electron-builder"
   },
   "devDependencies": {
-    "electron": "^30.0.0",
+    "electron": "^30.5.1",
     "electron-builder": "^24.13.3"
   },
   "build": {
+    "publish": null,
+
     "appId": "com.xander.jiboandfriends",
     "productName": "Jibo and Friends",
     "directories": {
@@ -32,8 +37,8 @@
 
     "mac": {
       "target": ["dmg", "pkg"],
-      "icon": "build/icon.icns",
       "minimumSystemVersion": "11.0",
+      "icon": "build/icon.icns",
       "category": "public.app-category.education"
     },
 
@@ -44,7 +49,8 @@
     "linux": {
       "target": ["AppImage", "deb"],
       "icon": "build/icon.png",
-      "category": "Education"
+      "category": "Education",
+      "maintainer": "Xander <xander@example.com>"
     }
   }
 }
