@@ -1,12 +1,10 @@
 {
   "name": "jibo-and-friends",
   "version": "1.0.0",
-  "description": "Fan-made Jibo and Friends app",
+  "description": "Jibo and Friends",
   "main": "main.js",
-  "author": {
-    "name": "Xander Gibson",
-    "email": "xandergibson2015@gmail.com"
-  },
+  "author": "Xander",
+  "license": "MIT",
   "scripts": {
     "start": "electron .",
     "build": "electron-builder"
@@ -16,25 +14,37 @@
     "electron-builder": "^24.13.3"
   },
   "build": {
-    "appId": "com.fanproject.jiboandfriends",
+    "appId": "com.xander.jiboandfriends",
     "productName": "Jibo and Friends",
     "directories": {
-      "buildResources": "assets"
+      "output": "dist",
+      "buildResources": "build"
     },
+    "files": [
+      "**/*",
+      "!node_modules/.bin"
+    ],
+
     "win": {
-      "icon": "assets/icon.ico",
-      "target": "nsis"
+      "target": "nsis",
+      "icon": "build/icon.ico"
     },
+
     "mac": {
-      "icon": "assets/icon.icns",
-      "target": "dmg"
+      "target": ["dmg", "pkg"],
+      "icon": "build/icon.icns",
+      "minimumSystemVersion": "11.0",
+      "category": "public.app-category.education"
     },
+
+    "pkg": {
+      "installLocation": "/Applications"
+    },
+
     "linux": {
-      "icon": "assets/icon.png",
-      "target": [
-        "AppImage",
-        "deb"
-      ]
+      "target": ["AppImage", "deb"],
+      "icon": "build/icon.png",
+      "category": "Education"
     }
   }
 }
