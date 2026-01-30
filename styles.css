@@ -1,0 +1,15 @@
+#robot-gallery {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15px;
+  padding: 10px;
+  overflow-y: auto;
+}
+
+.robot-card {
+  flex: 1 1 200px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  padding: 10px;
+  background-color: #f9f9f9;
+}
