@@ -14,18 +14,17 @@
     "build": "electron-builder --publish=never"
   },
 
-  "dependencies": {
-    "electron": "^30.5.1"
-  },
+  "dependencies": {},
 
   "devDependencies": {
+    "electron": "^30.5.1",
     "electron-builder": "^24.13.3"
   },
 
   "build": {
-    "appId": "com.jiboandfriends.app",
+    "appId": "com.xanderandfriends.jiboandfriends",
     "productName": "Jibo and Friends",
-    "copyright": "Copyright © 2026 Xander",
+    "copyright": "Copyright © 2026 Xander and Friends",
     "asar": true,
 
     "files": [
