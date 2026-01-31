@@ -1,79 +1,58 @@
-name: Build All Platforms
+name: Build Jibo and Friends
 
 on:
   push:
-    branches: [ "main" ]
+    branches: [main]
   workflow_dispatch:
 
 jobs:
-  windows:
-    runs-on: windows-latest
-    name: Windows Build
+  build:
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [windows-latest, macos-13, ubuntu-latest]
+
+    runs-on: ${{ matrix.os }}
 
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout repository
+        uses: actions/checkout@v4
 
-      - uses: actions/setup-node@v4
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
         with:
           node-version: 20
 
-      - run: npm install
-      - run: npm run build
+      - name: Install dependencies
+        run: npm ci
 
-      - name: Upload Windows EXE
+      - name: Build app
+        run: npm run build
+
+      # -------- Upload artifacts --------
+
+      - name: Upload Windows artifacts
+        if: runner.os == 'Windows'
         uses: actions/upload-artifact@v4
         with:
-          name: windows-installer
-          path: dist/**/*.exe
+          name: windows-build
+          path: |
+            dist/*.exe
 
-  macos:
-    runs-on: macos-12
-    name: macOS Build
-
-    steps:
-      - uses: actions/checkout@v4
-
-      - uses: actions/setup-node@v4
-        with:
-          node-version: 20
-
-      - run: npm install
-      - run: npm run build
-
-      - name: Upload macOS PKG
+      - name: Upload macOS artifacts
+        if: runner.os == 'macOS'
         uses: actions/upload-artifact@v4
         with:
-          name: macos-pkg
-          path: dist/**/*.pkg
+          name: macos-build
+          path: |
+            dist/*.dmg
+            dist/*.pkg
 
-      - name: Upload macOS DMG
+      - name: Upload Linux artifacts
+        if: runner.os == 'Linux'
         uses: actions/upload-artifact@v4
         with:
-          name: macos-dmg
-          path: dist/**/*.dmg
-
-  linux:
-    runs-on: ubuntu-latest
-    name: Linux Build
-
-    steps:
-      - uses: actions/checkout@v4
-
-      - uses: actions/setup-node@v4
-        with:
-          node-version: 20
-
-      - run: npm install
-      - run: npm run build
-
-      - name: Upload DEB
-        uses: actions/upload-artifact@v4
-        with:
-          name: linux-deb
-          path: dist/**/*.deb
-
-      - name: Upload AppImage
-        uses: actions/upload-artifact@v4
-        with:
-          name: linux-appimage
-          path: dist/**/*.AppImage
+          name: linux-build
+          path: |
+            dist/*.AppImage
+            dist/*.deb
