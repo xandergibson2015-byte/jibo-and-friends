@@ -1,56 +1,104 @@
 {
   "name": "jibo-and-friends",
   "version": "1.0.0",
-  "description": "Jibo and Friends",
-  "main": "main.js",
+  "description": "A friendly robot showcase app featuring Jibo and other AI companions.",
   "author": {
     "name": "Xander Gibson",
     "email": "xandergibson2015@gmail.com"
   },
   "license": "MIT",
+  "main": "main.js",
+
   "scripts": {
     "start": "electron .",
-    "build": "electron-builder"
+    "build": "electron-builder --publish=never"
   },
+
+  "dependencies": {
+    "electron": "^30.5.1"
+  },
+
   "devDependencies": {
-    "electron": "^30.5.1",
     "electron-builder": "^24.13.3"
   },
-  "build": {
-    "publish": null,
 
-    "appId": "com.xander.jiboandfriends",
+  "build": {
+    "appId": "com.jiboandfriends.app",
     "productName": "Jibo and Friends",
-    "directories": {
-      "output": "dist",
-      "buildResources": "build"
-    },
+    "copyright": "Copyright © 2026 Xander",
+    "asar": true,
+
     "files": [
       "**/*",
+      "!node_modules/*/{CHANGELOG.md,README.md,README,readme.md,readme}",
+      "!node_modules/*/{test,__tests__,tests,powered-test,example,examples}",
+      "!node_modules/*.d.ts",
       "!node_modules/.bin"
     ],
 
+    "directories": {
+      "buildResources": "build",
+      "output": "dist"
+    },
+
     "win": {
-      "target": "nsis",
+      "target": [
+        {
+          "target": "nsis",
+          "arch": ["x64"]
+        }
+      ],
       "icon": "build/icon.ico"
     },
 
+    "nsis": {
+      "oneClick": true,
+      "perMachine": false,
+      "allowElevation": true,
+      "allowToChangeInstallationDirectory": false
+    },
+
     "mac": {
-      "target": ["dmg", "pkg"],
-      "minimumSystemVersion": "11.0",
+      "target": [
+        "dmg",
+        "pkg"
+      ],
+      "category": "public.app-category.education",
+      "minimumSystemVersion": "12.0",
       "icon": "build/icon.icns",
-      "category": "public.app-category.education"
+      "hardenedRuntime": false,
+      "gatekeeperAssess": false
+    },
+
+    "dmg": {
+      "sign": false
     },
 
     "pkg": {
-      "installLocation": "/Applications"
+      "allowAnywhere": true,
+      "allowCurrentUserHome": true,
+      "allowRootDirectory": true
     },
 
     "linux": {
-      "target": ["AppImage", "deb"],
-      "icon": "build/icon.png",
+      "target": [
+        "AppImage",
+        "deb"
+      ],
+      "icon": "build/icons",
       "category": "Education",
-      "maintainer": "Xander <xander@example.com>"
+      "maintainer": "Xander Gibson <xandergibson2015@gmail.com>"
+    },
+
+    "deb": {
+      "depends": [
+        "libnotify4",
+        "libnss3",
+        "libxss1",
+        "libxtst6",
+        "xdg-utils",
+        "libatspi2.0-0"
+      ]
     }
   }
 }
