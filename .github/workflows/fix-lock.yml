@@ -1,0 +1,35 @@
+name: Fix package-lock.json
+
+on:
+  workflow_dispatch:
+
+jobs:
+  fix-lock:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+        with:
+          persist-credentials: true
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 18
+
+      - name: Remove old lock + node_modules
+        run: |
+          rm -f package-lock.json
+          rm -rf node_modules
+
+      - name: Generate fresh lock file
+        run: npm install
+
+      - name: Commit updated lock file
+        run: |
+          git config user.name "github-actions"
+          git config user.email "github-actions@github.com"
+          git add package-lock.json
+          git commit -m "Fix package-lock.json (GitHub Actions)"
+          git push
