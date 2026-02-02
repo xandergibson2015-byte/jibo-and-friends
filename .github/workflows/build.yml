@@ -1,4 +1,4 @@
-name: Build All Platforms
+name: Build Electron App
 
 on:
   push:
@@ -7,29 +7,63 @@ on:
 
 jobs:
   build:
-    strategy:
-      matrix:
-        os: [windows-latest, macos-15-intel, ubuntu-latest]
-
+    name: Build (${{ matrix.os }} / ${{ matrix.arch }})
     runs-on: ${{ matrix.os }}
 
+    strategy:
+      max-parallel: 1
+      fail-fast: false
+      matrix:
+        include:
+          # ---------- Windows ----------
+          - os: windows-latest
+            arch: x64
+            platform: win
+          - os: windows-latest
+            arch: ia32
+            platform: win
+
+          # ---------- Linux ----------
+          - os: ubuntu-latest
+            arch: x64
+            platform: linux
+          - os: ubuntu-latest
+            arch: ia32
+            platform: linux
+
+          # ---------- macOS (Intel only) ----------
+          - os: macos-13
+            arch: x64
+            platform: mac
+
     steps:
-      - name: Checkout
+      - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Setup Node
+      - name: Set up Node.js
         uses: actions/setup-node@v4
         with:
           node-version: 18
+          cache: npm
 
       - name: Install dependencies
         run: npm ci
 
-      - name: Build app
-        run: npm run build
+      - name: Build Electron app
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          if [ "${{ matrix.platform }}" = "win" ]; then
+            npx electron-builder --win --${{ matrix.arch }} --publish=never
+          elif [ "${{ matrix.platform }}" = "linux" ]; then
+            npx electron-builder --linux --${{ matrix.arch }} --publish=never
+          else
+            npx electron-builder --mac --x64 --publish=never
+          fi
+        shell: bash
 
-      - name: Upload artifacts
+      - name: Upload build artifacts
         uses: actions/upload-artifact@v4
         with:
-          name: ${{ matrix.os }}-artifacts
-          path: dist/**
+          name: ${{ matrix.platform }}-${{ matrix.arch }}
+          path: dist/
