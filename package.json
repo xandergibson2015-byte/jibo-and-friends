@@ -8,33 +8,47 @@
   },
   "main": "main.js",
   "private": true,
+
   "scripts": {
     "start": "electron .",
     "build": "electron-builder --publish=never"
   },
+
   "dependencies": {},
+
   "devDependencies": {
     "electron": "28.3.3",
     "electron-builder": "24.13.3"
   },
+
   "build": {
     "appId": "com.xanderandfriends.jiboandfriends",
     "productName": "Jibo and Friends",
+
     "files": [
       "**/*"
     ],
+
     "directories": {
       "buildResources": "build",
       "output": "dist"
     },
+
     "win": {
-      "target": "nsis",
+      "target": [
+        {
+          "target": "nsis",
+          "arch": ["x64", "ia32"]
+        }
+      ],
       "icon": "build/icon.ico"
     },
+
     "nsis": {
       "oneClick": true,
       "perMachine": false
     },
+
     "mac": {
       "target": [
         {
@@ -47,10 +61,17 @@
       "minimumSystemVersion": "12.0",
       "category": "public.app-category.education"
     },
+
     "linux": {
       "target": [
-        "AppImage",
-        "deb"
+        {
+          "target": "deb",
+          "arch": ["x64", "ia32"]
+        },
+        {
+          "target": "AppImage",
+          "arch": ["x64"]
+        }
       ],
       "icon": "build/icons",
       "category": "Education"
