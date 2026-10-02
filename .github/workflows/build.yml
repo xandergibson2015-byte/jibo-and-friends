@@ -9,7 +9,7 @@ jobs:
   build:
     strategy:
       matrix:
-        os: [windows-latest, macos-13, ubuntu-latest] # Adjusted macos version for Intel x64 target
+        os: [windows-latest, macos-14, ubuntu-latest]
 
     runs-on: ${{ matrix.os }}
 
@@ -25,22 +25,18 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
-      # Run Windows build only on Windows runner
       - name: Build app (Windows)
         if: matrix.os == 'windows-latest'
         run: npm run build
 
-      # Run Mac build only on Mac runner
       - name: Build app (macOS)
-        if: matrix.os == 'macos-13'
+        if: matrix.os == 'macos-14'
         run: npm run build:mac
 
-      # Run Linux build only on Linux runner
       - name: Build app (Linux)
         if: matrix.os == 'ubuntu-latest'
         run: npm run build:linux
 
-      # Upload artifacts
       - name: Upload artifacts
         uses: actions/upload-artifact@v4
         with:
