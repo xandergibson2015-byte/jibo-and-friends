@@ -14,7 +14,7 @@
   },
   "dependencies": {},
   "devDependencies": {
-    "electron": "28.3.3",
+    "electron": "11.5.0",
     "electron-builder": "24.13.3"
   },
   "build": {
@@ -39,12 +39,12 @@
       "target": [
         {
           "target": "dmg",
-          "arch": ["x64", "arm64"]
+          "arch": ["x64"]
         },
         "pkg"
       ],
       "icon": "build/icon.icns",
-      "minimumSystemVersion": "12.0",
+      "minimumSystemVersion": "10.10.0",
       "category": "public.app-category.education"
     },
     "linux": {
