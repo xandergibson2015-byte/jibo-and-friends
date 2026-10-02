@@ -10,7 +10,9 @@
   "private": true,
   "scripts": {
     "start": "electron .",
-    "build": "electron-builder --publish=never"
+    "build": "electron-builder --publish=never",
+    "build:mac": "electron-builder --mac",
+    "build:linux": "electron-builder --linux"
   },
   "dependencies": {},
   "devDependencies": {
